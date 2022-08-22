@@ -6,13 +6,17 @@ import Note from './Components/Note'
 
 const App = (props) => {
   const [notes, setNotes] = useState(props.notes)
-  const [newNote,setNewwNote]= useState("a new note")
+  const [newNote,setNewNote]= useState("a new note")
 
   
   const addNotes =(event)=>{
     // prevent default -> console ma few seconds pachi afai ease huncha input gareko value so tyo remove garna ko laghi preventDefault method use huncha 
     event.preventDefault()
-    console.log("buttonclicked",event.target)
+    // console.log("buttonclicked",event.target)
+  }
+  const handleNoteChange=(event)=>{
+    console.log(event.target.value)
+    setNewNote(event.target.value)
   }
 
 
@@ -27,7 +31,8 @@ const App = (props) => {
       
       
     <form onSubmit={addNotes}>
-      <input value ={newNote}/>
+      <input value ={newNote}
+      onChange={handleNoteChange}/>
 
         <button type="submit">save </button>
         
