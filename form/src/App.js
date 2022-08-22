@@ -7,6 +7,13 @@ import Note from './Components/Note'
 const App = (props) => {
   const [notes, setNotes] = useState(props.notes)
   const [newNote,setNewNote]= useState("a new note")
+  const [ showAll, setshowALL]= useState(true)
+
+  const notesToShow = showAll 
+  ?notes 
+  : notes.filter (note=> note.important ===true)
+
+  
 
   
   const addNotes =(event)=>{
@@ -26,15 +33,19 @@ const App = (props) => {
     console.log(event.target.value)
     setNewNote(event.target.value)
   }
-
-
+  
   return ( 
     <div>  
       <h1>Notes</h1>
       <ul>
-        {notes.map(note => 
+        {/* {notes.map(note => 
           <Note key={note.id} note={note} />
-        )}
+
+        )} */}
+
+        {notesToShow.map(note => <Note key={note.id} note={note} />)}
+        
+
       </ul>
       
       
