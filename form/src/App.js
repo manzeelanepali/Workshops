@@ -13,6 +13,14 @@ const App = (props) => {
     // prevent default -> console ma few seconds pachi afai ease huncha input gareko value so tyo remove garna ko laghi preventDefault method use huncha 
     event.preventDefault()
     // console.log("buttonclicked",event.target)
+    const newObject ={
+      content : newNote,
+      date : new Date().toISOString(),
+      important : Math.random()< 0.5,
+      id : notes.length + 1,
+    }
+    setNotes(notes.concat(newObject))
+    setNewNote("")
   }
   const handleNoteChange=(event)=>{
     console.log(event.target.value)
