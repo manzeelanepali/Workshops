@@ -13,7 +13,7 @@ const App = (props) => {
   ?notes 
   : notes.filter (note=> note.important ===true)
 
-  
+   
 
   
   const addNotes =(event)=>{
