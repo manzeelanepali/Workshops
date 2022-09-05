@@ -38,6 +38,11 @@ const App = () => {
       important : Math.random()< 0.5,
       id : notes.length + 1,
     }
+    axios
+    .post("http://localhost:3001/notes",newNote)
+    .then(response=>{
+      console.log(response)
+    })
     setNotes(notes.concat(newObject))
     setNewNote("")
   }
