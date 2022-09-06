@@ -39,12 +39,12 @@ const App = () => {
       id : notes.length + 1,
     }
     axios
-    .post("http://localhost:3001/notes",newNote)
+    .post("http://localhost:3001/notes",newObject)
     .then(response=>{
-      console.log(response)
+      console.log(response.data)
+      setNotes(notes.concat(newObject))
+      setNewNote("")
     })
-    setNotes(notes.concat(newObject))
-    setNewNote("")
   }
   const handleNoteChange=(event)=>{
     console.log(event.target.value)
