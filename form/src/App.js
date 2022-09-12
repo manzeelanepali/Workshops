@@ -5,6 +5,7 @@
 import { useState,useEffect } from 'react'
 import Note from './Components/Note'
 import axios from "axios";
+import Footer from "./Components/Footer"
 
 
 
@@ -80,6 +81,7 @@ const App = () => {
         <button type="submit">save </button>
         
         </form>
+        <Footer/>
     </div>
   )
 }
