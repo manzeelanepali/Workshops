@@ -64,6 +64,21 @@ const App = () => {
               console.log(
                 `Button is clicked bu function passsed from App for id ${note.id}`
               );
+              // points for updating the value in the backend only
+              // 1. Make new object from current note with toggled important field
+              const updatedNotes = { ...note, important: !note.important };
+              axios
+                // 2. update backend server with the updated object
+                .put(`http://localhost:3001/notes/${note.id}`, updatedNotes)
+                .then((response) => {
+                  console.log(response.data);
+                  // 3. put  for updating the frontend state with the updated note
+                  setNotes(
+                    notes.map((x) => (x.id !== note.id ? x : response.data))
+                  );
+                  // setNotes(notes.concat(newObject));
+                  // setNewNote("");
+                });
             }}
           />
         ))}
