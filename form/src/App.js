@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import Note from "./Components/Note";
-import axios from "axios";
+// import axios from "axios";
 import Footer from "./Components/Footer";
+import notesService from "./services/notes";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -9,8 +10,9 @@ const App = () => {
   const [showAll, setShowALL] = useState(true);
 
   useEffect(() => {
-    axios.get("  http://localhost:3001/notes").then((result) => {
-      setNotes(result.data);
+    // axios.get("  http://localhost:3001/notes")
+    notesService.getAll().then((result) => {
+      setNotes(result);
     });
   }, []);
 
@@ -28,8 +30,8 @@ const App = () => {
       important: Math.random() < 0.5,
       id: notes.length + 1,
     };
-    axios.post("http://localhost:3001/notes", newObject).then((response) => {
-      console.log(response.data);
+    notesService.create(newObject).then((response) => {
+      // console.log(response.data);
       setNotes(notes.concat(newObject));
       setNewNote("");
     });
@@ -67,18 +69,24 @@ const App = () => {
               // points for updating the value in the backend only
               // 1. Make new object from current note with toggled important field
               const updatedNotes = { ...note, important: !note.important };
-              axios
-                // 2. update backend server with the updated object
-                .put(`http://localhost:3001/notes/${note.id}`, updatedNotes)
-                .then((response) => {
-                  console.log(response.data);
-                  // 3. put  for updating the frontend state with the updated note
-                  setNotes(
-                    notes.map((x) => (x.id !== note.id ? x : response.data))
-                  );
-                  // setNotes(notes.concat(newObject));
-                  // setNewNote("");
-                });
+              // axios
+              notesService.update(note.id, updatedNotes).then((response) => {
+                setNotes(notes.map((x) => (x.id !== note.id ? x : response)));
+                // setNotes(notes.concat(updatedNotes));
+                // setNewNote("");
+              });
+              // }
+              //   // 2. update backend server with the updated object
+              //   .put(`http://localhost:3001/notes/${note.id}`, updatedNotes)
+              //   .then((response) => {
+              //     console.log(response.data);
+              //     // 3. put  for updating the frontend state with the updated note
+              //     setNotes(
+              //       notes.map((x) => (x.id !== note.id ? x : response.data))
+              //     );
+              //     // setNotes(notes.concat(newObject));
+              //     // setNewNote("");
+              //   });
             }}
           />
         ))}
