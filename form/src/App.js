@@ -3,6 +3,7 @@ import Note from "./Components/Note";
 // import axios from "axios";
 import Footer from "./Components/Footer";
 import notesService from "./services/notes";
+import Notifications from "./Components/Notifications";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -44,6 +45,7 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
+      <Notifications message="This is a message " />
       <div>
         <div>
           <button onClick={() => setShowALL(!showAll)}>
@@ -70,11 +72,16 @@ const App = () => {
               // 1. Make new object from current note with toggled important field
               const updatedNotes = { ...note, important: !note.important };
               // axios
-              notesService.update(note.id, updatedNotes).then((response) => {
-                setNotes(notes.map((x) => (x.id !== note.id ? x : response)));
-                // setNotes(notes.concat(updatedNotes));
-                // setNewNote("");
-              });
+              notesService
+                .update(note.id, updatedNotes)
+                .then((response) => {
+                  setNotes(notes.map((x) => (x.id !== note.id ? x : response)));
+                  // setNotes(notes.concat(updatedNotes));
+                  // setNewNote("");
+                })
+                .catch((error) => {
+                  console.log("caught the error ");
+                });
               // }
               //   // 2. update backend server with the updated object
               //   .put(`http://localhost:3001/notes/${note.id}`, updatedNotes)
