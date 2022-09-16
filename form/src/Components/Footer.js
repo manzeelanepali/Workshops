@@ -4,9 +4,9 @@ const Footer = () => {
     fontStyle: "italic",
     fontSize: 16,
   };
-  // if (true) {
-  //   footerStyle = { ...footerStyle, color: red };
-  // }
+  if (true) {
+    footerStyle = { ...footerStyle, color: "red" };
+  }
 
   return (
     <div style={footerStyle}>
