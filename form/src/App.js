@@ -9,6 +9,7 @@ const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("a new note");
   const [showAll, setShowALL] = useState(true);
+  const [message, setMessage] = useState("sample Message");
 
   useEffect(() => {
     // axios.get("  http://localhost:3001/notes")
@@ -45,7 +46,7 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
-      <Notifications message="This is a message " />
+      <Notifications message={message} />
       <div>
         <div>
           <button onClick={() => setShowALL(!showAll)}>
@@ -80,7 +81,9 @@ const App = () => {
                   // setNewNote("");
                 })
                 .catch((error) => {
-                  console.log("caught the error ");
+                  // console.log("caught the error ");
+                  setMessage("This note doesnot exist anymore");
+                  setTimeout(() => setMessage(null), 2000);
                 });
               // }
               //   // 2. update backend server with the updated object
