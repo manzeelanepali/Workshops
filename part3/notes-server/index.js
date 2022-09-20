@@ -1,7 +1,9 @@
 const { response } = require("express");
 const express = require("express");
+const cors = require("cors");
 const { request } = require("http");
 const App = express();
+App.use(cors());
 
 let notes = [
   {
@@ -27,8 +29,14 @@ let notes = [
 App.get("/", (request, response) => {
   response.send("Hello woorld there");
 });
-App.get("/notes", (request, response) => {
-  response.send(notes);
+App.get("/notes/:id", (request, response) => {
+  const currentid = Number(request.params.id);
+  const thisNote = notes.find((note) => note.id === currentid);
+  if (this.notes) response.json(thisNote);
+  else
+    response
+      .status(404)
+      .json({ error: 404, message: `there is no note with id ${currentid}` });
 });
 
 App.listen("3001", () => {
