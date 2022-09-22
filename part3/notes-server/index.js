@@ -41,7 +41,15 @@ App.get("/notes/:id", (request, response) => {
       .json({ error: 404, message: `there is no note with id ${currentid}` });
   }
 });
+App.delete("/notes/:id", (request, response) => {
+  const currentid = Number(request.params.id);
+  notes = notes.filter((note) => note.id !== currentid);
+  // console.log(currentid);
+  // const thisNote = notes.find((note) => note.id === currentid);
 
+  response.status(204).end();
+  // .json({ error: 404, message: `there is no note with id ${currentid}` });
+});
 App.listen("3001", () => {
   console.log("server listening on 3001");
 });
