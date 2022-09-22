@@ -31,12 +31,15 @@ App.get("/", (request, response) => {
 });
 App.get("/notes/:id", (request, response) => {
   const currentid = Number(request.params.id);
+  console.log(currentid);
   const thisNote = notes.find((note) => note.id === currentid);
-  if (this.notes) response.json(thisNote);
-  else
+  if (thisNote) {
+    response.json(thisNote);
+  } else {
     response
       .status(404)
       .json({ error: 404, message: `there is no note with id ${currentid}` });
+  }
 });
 
 App.listen("3001", () => {
