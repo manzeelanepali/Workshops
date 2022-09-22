@@ -53,9 +53,11 @@ App.delete("/notes/:id", (request, response) => {
 });
 App.post("/notes/", (request, response) => {
   let myIncomingData = request.body;
-  console.log(myIncomingData);
+  myIncomingData.id = notes.length + 1;
+  notes.push(myIncomingData);
+  // console.log(myIncomingData);
   // response.status(204).end();
-  response.end;
+  response.status(201).json(myIncomingData);
 });
 
 App.listen("3001", () => {
