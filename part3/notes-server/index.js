@@ -4,6 +4,7 @@ const cors = require("cors");
 const { request } = require("http");
 const App = express();
 App.use(cors());
+App.use(express.json());
 
 let notes = [
   {
@@ -50,6 +51,13 @@ App.delete("/notes/:id", (request, response) => {
   response.status(204).end();
   // .json({ error: 404, message: `there is no note with id ${currentid}` });
 });
+App.post("/notes/", (request, response) => {
+  let myIncomingData = request.body;
+  console.log(myIncomingData);
+  // response.status(204).end();
+  response.end;
+});
+
 App.listen("3001", () => {
   console.log("server listening on 3001");
 });
