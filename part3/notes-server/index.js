@@ -5,6 +5,7 @@ const { request } = require("http");
 const App = express();
 App.use(cors());
 App.use(express.json());
+App.use((request, response, next) => {});
 
 let notes = [
   {
