@@ -5,7 +5,15 @@ const { request } = require("http");
 const App = express();
 App.use(cors());
 App.use(express.json());
-App.use((request, response, next) => {});
+//  using middle wear )
+App.use((request, response, next) => {
+  console.log("Method:", request.method);
+  console.log("path:", request.path);
+  console.log("This is middlewear");
+  response.someThis = "Hello world ";
+
+  next();
+});
 
 let notes = [
   {
@@ -59,6 +67,9 @@ App.post("/notes/", (request, response) => {
   // console.log(myIncomingData);
   // response.status(204).end();
   response.status(201).json(myIncomingData);
+});
+App.use((request, response, next) => {
+  response.status(404).send("<h1> No Project found for this request</h1>");
 });
 
 App.listen("3001", () => {
