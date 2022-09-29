@@ -5,7 +5,8 @@ const { request } = require("http");
 const App = express();
 App.use(cors());
 App.use(express.json());
-//  using middle wear )
+App.use(express.static("build"));
+//  using middleware )
 App.use((request, response, next) => {
   console.log("Method:", request.method);
   console.log("path:", request.path);
@@ -39,6 +40,9 @@ let notes = [
 App.get("/", (request, response) => {
   response.send("Hello woorld there");
 });
+App.get("/notes", (request, response) => {
+  response.json(notes);
+});
 App.get("/notes/:id", (request, response) => {
   const currentid = Number(request.params.id);
   console.log(currentid);
@@ -68,9 +72,9 @@ App.post("/notes/", (request, response) => {
   // response.status(204).end();
   response.status(201).json(myIncomingData);
 });
-App.use((request, response, next) => {
-  response.status(404).send("<h1> No Project found for this request</h1>");
-});
+// App.use((request, response, next) => {
+//   response.status(404).send("<h1> No Project found for this request</h1>");
+// });
 
 App.listen("3001", () => {
   console.log("server listening on 3001");
