@@ -75,7 +75,8 @@ App.post("/notes/", (request, response) => {
 // App.use((request, response, next) => {
 //   response.status(404).send("<h1> No Project found for this request</h1>");
 // });
+const PORT = process.env.PORT || "3001";
 
-App.listen("3001", () => {
-  console.log("server listening on 3001");
+App.listen(PORT, () => {
+  console.log(`server listening on ${PORT}`);
 });
