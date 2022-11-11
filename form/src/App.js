@@ -36,7 +36,14 @@ const App = () => {
       // console.log(response.data);
       setNotes(notes.concat(newObject));
       setNewNote("");
-    });
+    }).catch(error=>{
+      console.log(error)
+      console.dir(error)
+      setMessage(error.response.data.error);
+      setTimeout(() => {
+        
+      },2000);
+    })
   };
   const handleNoteChange = (event) => {
     console.log(event.target.value);
@@ -45,7 +52,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Notes</h1>
+      <h1>Notes details</h1>
       <Notifications message={message} />
       <div>
         <div>
