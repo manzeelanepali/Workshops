@@ -4,12 +4,15 @@ import Note from "./Components/Note";
 import Footer from "./Components/Footer";
 import notesService from "./services/notes";
 import Notifications from "./Components/Notifications";
-
+import loginService from "./services/login";
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("a new note");
   const [showAll, setShowALL] = useState(true);
-  const [message, setMessage] = useState("sample Message");
+  const [message, setErrorMessage] = useState("sample Message");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // axios.get("  http://localhost:3001/notes")
@@ -32,28 +35,71 @@ const App = () => {
       important: Math.random() < 0.5,
       id: notes.length + 1,
     };
-    notesService.create(newObject).then((response) => {
-      // console.log(response.data);
-      setNotes(notes.concat(newObject));
-      setNewNote("");
-    }).catch(error=>{
-      console.log(error)
-      console.dir(error)
-      setMessage(error.response.data.error);
-      setTimeout(() => {
-        
-      },2000);
-    })
+    notesService
+      .create(newObject)
+      .then((response) => {
+        // console.log(response.data);
+        setNotes(notes.concat(newObject));
+        setNewNote("");
+      })
+      .catch((error) => {
+        console.log(error);
+        console.dir(error);
+        setErrorMessage(error.response.data.error);
+        setTimeout(() => {}, 2000);
+      });
   };
   const handleNoteChange = (event) => {
     console.log(event.target.value);
     setNewNote(event.target.value);
   };
 
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      const user = await loginService.login({
+        username,
+        password,
+      });
+      setUser(user);
+      setUsername("");
+      setPassword("");
+    } catch (exception) {
+      setErrorMessage("Wrong credentials");
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
+  };
+
   return (
     <div>
       <h1>Notes details</h1>
       <Notifications message={message} />
+
+      <form onSubmit={handleLogin}>
+        <div>
+          username
+          <input
+            type="text"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          password
+          <input
+            type="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <button type="submit">login</button>
+      </form>
+
       <div>
         <div>
           <button onClick={() => setShowALL(!showAll)}>
@@ -89,8 +135,8 @@ const App = () => {
                 })
                 .catch((error) => {
                   // console.log("caught the error ");
-                  setMessage("This note doesnot exist anymore");
-                  setTimeout(() => setMessage(null), 2000);
+                  setErrorMessage("This note doesnot exist anymore");
+                  setTimeout(() => setErrorMessage(null), 2000);
                 });
               // }
               //   // 2. update backend server with the updated object
