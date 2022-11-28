@@ -21,6 +21,15 @@ const App = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem("loggedNoteappUser");
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      notesService.setToken(user.token);
+    }
+  }, []);
+
   const notesToShow = showAll
     ? notes
     : notes.filter((note) => note.important === true);
@@ -112,15 +121,20 @@ const App = () => {
       <h1>Notes details</h1>
       <Notifications message={message} />
 
-      {user === null ? loginForm() : noteForm()}
-
-      <div>
+      {/* {user === null ? loginForm() : noteForm()} */}
+      {user === null ? (
+        loginForm()
+      ) : (
         <div>
-          <button onClick={() => setShowALL(!showAll)}>
-            show {showAll ? "important" : "all"}
-          </button>
+          <p>{user.name} logged-in</p>
+          {noteForm()}
         </div>
-      </div>
+      )}
+
+      <button onClick={() => setShowALL(!showAll)}>
+        show {showAll ? "important" : "all"}
+      </button>
+
       <ul>
         {/* {notes.map(note => 
           <Note key={note.id} note={note} />
