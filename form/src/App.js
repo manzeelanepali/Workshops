@@ -73,10 +73,58 @@ const App = () => {
     }
   };
 
+  const loginForm = () => (
+    <form onSubmit={handleLogin}>
+      <div>
+        username
+        <input
+          type="text"
+          value={username}
+          name="Username"
+          onChange={({ target }) => setUsername(target.value)}
+        />
+      </div>
+      <div>
+        password
+        <input
+          type="password"
+          value={password}
+          name="Password"
+          onChange={({ target }) => setPassword(target.value)}
+        />
+      </div>
+      <button type="submit">login</button>
+    </form>
+  );
+
   return (
     <div>
       <h1>Notes details</h1>
       <Notifications message={message} />
+
+      {loginForm()}
+
+      {/* <form onSubmit={handleLogin}>
+        <div>
+          username
+          <input
+            type="text"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          password
+          <input
+            type="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <button type="submit">login</button>
+      </form> */}
 
       <div>
         <div>
@@ -113,6 +161,7 @@ const App = () => {
                 })
                 .catch((error) => {
                   // console.log("caught the error ");
+                  setErrorMessage("This note doesnot exist anymore");
                   setErrorMessage("This note doesnot exist anymore");
                   setTimeout(() => setErrorMessage(null), 2000);
                 });
