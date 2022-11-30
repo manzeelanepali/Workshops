@@ -117,7 +117,7 @@ const App = () => {
     </form>
   );
 
-  return <Togglable>I am manjila </Togglable>;
+  return <Togglable buttonLabel="show me">I am manjila </Togglable>;
 };
 
 export default App;
