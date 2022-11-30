@@ -7,6 +7,7 @@ import Notifications from "./Components/Notifications";
 import loginService from "./services/login";
 import Togglable from "./Components/Togglable";
 import LoginForm from "./Components/LoginForm";
+import NoteForm from "./Components/NoteForm";
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("a new note");
@@ -36,7 +37,7 @@ const App = () => {
     ? notes
     : notes.filter((note) => note.important === true);
 
-  const addNotes = (event) => {
+  const addNote = (event) => {
     // prevent default -> console ma few seconds pachi afai ease huncha input gareko value so tyo remove garna ko laghi preventDefault method use huncha
     event.preventDefault();
     // console.log("buttonclicked",event.target)
@@ -99,11 +100,13 @@ const App = () => {
   );
 
   const noteForm = () => (
-    <form onSubmit={addNotes}>
-      <input value={newNote} onChange={handleNoteChange} />
-
-      <button type="submit">save </button>
-    </form>
+    <Togglable buttonLabel="new note">
+      <NoteForm
+        onSubmit={addNote}
+        value={newNote}
+        handleChange={handleNoteChange}
+      />
+    </Togglable>
   );
 
   return (
