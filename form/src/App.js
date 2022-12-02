@@ -16,7 +16,6 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-
   useEffect(() => {
     // axios.get("  http://localhost:3001/notes")
     notesService.getAll().then((result) => {
@@ -38,9 +37,8 @@ const App = () => {
     : notes.filter((note) => note.important === true);
 
   const addNote = (event) => {
-    // prevent default -> console ma few seconds pachi afai ease huncha input gareko value so tyo remove garna ko laghi preventDefault method use huncha
     event.preventDefault();
-    // console.log("buttonclicked",event.target)
+
     const newObject = {
       content: newNote,
       date: new Date().toISOString(),
@@ -65,7 +63,6 @@ const App = () => {
     console.log(event.target.value);
     setNewNote(event.target.value);
   };
-
   const handleLogin = async (event) => {
     event.preventDefault();
 
@@ -113,7 +110,6 @@ const App = () => {
     <div>
       <h1>Notes details</h1>
       <Notifications message={message} />
-
       {/* {user === null ? loginForm() : noteForm()} */}
       {user === null ? (
         loginForm()
@@ -123,16 +119,13 @@ const App = () => {
           {noteForm()}
         </div>
       )}
-
       <button onClick={() => setShowALL(!showAll)}>
         show {showAll ? "important" : "all"}
       </button>
-
       <ul>
         {/* {notes.map(note => 
           <Note key={note.id} note={note} />
         )} */}
-
         {notesToShow.map((note) => (
           <Note
             key={note.id}
@@ -175,7 +168,6 @@ const App = () => {
           />
         ))}
       </ul>
-
       {/* <form onSubmit={addNotes}>
         <input value={newNote} onChange={handleNoteChange} />
         <button type="submit">save </button>
@@ -184,5 +176,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;
