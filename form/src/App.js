@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Note from "./Components/Note";
 // import axios from "axios";
 import Footer from "./Components/Footer";
@@ -9,6 +9,7 @@ import Togglable from "./Components/Togglable";
 import LoginForm from "./Components/LoginForm";
 import NoteForm from "./Components/NoteForm";
 const App = () => {
+  const noteFormRef = useRef();
   const [notes, setNotes] = useState([]);
 
   const [showAll, setShowALL] = useState(true);
@@ -37,9 +38,13 @@ const App = () => {
     : notes.filter((note) => note.important === true);
 
   const addNote = (noteObject) => {
+    noteFormRef.current.toggleVisibility();
+
     notesService.create(noteObject).then((returnedNote) => {
       setNotes(notes.concat(returnedNote));
+      noteFormRef.current.toggleVisibility();
     });
+    console.log("addNotes rn ", addNote);
   };
   console.log("addNotes", addNote);
   const handleLogin = async (event) => {
@@ -76,7 +81,7 @@ const App = () => {
   );
 
   const noteForm = () => (
-    <Togglable buttonLabel="new note">
+    <Togglable buttonLabel="new note" ref={noteFormRef}>
       <NoteForm createNote={addNote} />
     </Togglable>
   );
