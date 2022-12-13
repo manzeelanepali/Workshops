@@ -12,9 +12,12 @@ describe("Note app", function () {
     cy.contains("login").click();
   });
 
-  it("user can login", function () {
+  it("user can log in", function () {
     cy.contains("login").click();
-    cy.get("input:first").type("mluukkai");
-    cy.get("input:last").type("salainen");
+    cy.get("#username").type("Mahes");
+    cy.get("#password").type("Nepali");
+    cy.get("#login-button").click();
+
+    cy.contains("sunaina synagboo logged-in");
   });
 });
