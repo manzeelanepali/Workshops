@@ -126,6 +126,7 @@ const App = () => {
                   // setNotes(notes.concat(updatedNotes));
                   // setNewNote("");
                 })
+                // eslint-disable-next-line no-unused-vars
                 .catch((error) => {
                   // console.log("caught the error ");
                   setErrorMessage("This note doesnot exist anymore");
