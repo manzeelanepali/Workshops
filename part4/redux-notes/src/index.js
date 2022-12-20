@@ -2,12 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createStore } from "redux";
 
-const noteReducer = (state = [], action) => {
-  if (action.type === 'NEW_NOTE') {
-  return[...state,action.data]
+
+  const noteReducer = (state = [], action) => {
+    switch(action.type) {
+      case 'NEW_NOTE':
+        return state.concat(action.data)
+      case 'TOGGLE_IMPORTANCE': {
+        const id = action.data.id
+        const noteToChange = state.find(n => n.id === id)
+        const changedNote = { 
+          ...noteToChange, 
+          important: !noteToChange.important 
+        }
+        return state.map(note =>
+          note.id !== id ? note : changedNote 
+        )
+       }
+      default:
+        return state
+    }
   }
-  return state
-}
 const store = createStore(noteReducer)
 store.dispatch({
   type: 'NEW_NOTE',
@@ -45,6 +59,13 @@ const App = () => {
       }
     })
   }
+
+  const toggleImportance = (id) => {
+    store.dispatch({
+      type: 'TOGGLE_IMPORTANCE',
+      data: { id }
+    })
+  }
     
   
   
@@ -58,8 +79,9 @@ const App = () => {
       </form>
       <ul>
         {store.getState().map(note=>
-          <li key={note.id}>
-            {note.content} <strong>{note.important ? 'important' : ''}</strong>
+          <li key={note.id}
+            onClick={() => toggleImportance(note.id)}>
+           {note.content} <strong>{note.important ? 'important' : ''}</strong>
           </li>
         )}
         </ul>
