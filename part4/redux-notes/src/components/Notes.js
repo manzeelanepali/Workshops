@@ -7,7 +7,7 @@ const Notes =(props)=>{
 
 
 
-const notes = useSelector((state)=> state);
+const notes = useSelector((state)=> state.notes);
 
 
 
