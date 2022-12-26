@@ -7,9 +7,16 @@ const Notes =(props)=>{
 
 
 
-const notes = useSelector((state)=> state.notes);
+// const notes = useSelector((state)=> state.notes);
 
-
+const notes = useSelector(state => {
+    if ( state.filter === 'ALL' ) {
+      return state.notes
+    }
+    return state.filter  === 'IMPORTANT' 
+      ? state.notes.filter(note => note.important)
+      : state.notes.filter(note => !note.important)
+  })
 
 const toggleImportance = (id) => {
       
