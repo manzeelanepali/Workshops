@@ -23,7 +23,7 @@ const App = () => {
         nonimportant <input type="radio" name="filter"
           onChange={() => filterSelected('NONIMPORTANT')} />
       </div>
-      <NewNote />
+    
      
 
 
