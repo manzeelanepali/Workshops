@@ -48,6 +48,12 @@ Number((Math.random() * 1000000).toFixed(0))
 export default noteSlice.reducer;
 
 
+export const initializeNotes = () => {
+  return async dispatch => {
+    const notes = await noteService.getAll()
+    dispatch(setNotes(notes))
+  }
+}
 
 export const createNote = (content) => {
   return async (dispatch) => {
