@@ -21,6 +21,7 @@ Number((Math.random() * 1000000).toFixed(0))
       },
 
       appendNote(state, action) {
+        
         return [...state,action.payload]
       },  
       setNotes(state, action) {
