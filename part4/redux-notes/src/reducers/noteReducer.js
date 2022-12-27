@@ -21,6 +21,14 @@ Number((Math.random() * 1000000).toFixed(0))
           id: generateId(),
         })
       },
+
+      appendNote(state, action) {
+        state.push(action.payload)
+      },  
+      setNotes(state, action) {
+        return action.payload
+      },
+
       toggleImportanceOf(state, action) {
         const id = action.payload
         const noteToChange = state.find(n => n.id === id)
@@ -37,5 +45,5 @@ Number((Math.random() * 1000000).toFixed(0))
 
   
 
-  export const { createNote, toggleImportanceOf } = noteSlice.actions
+  export const { createNote, toggleImportanceOf,appendNote,setNotes  } = noteSlice.actions
 export default noteSlice.reducer
