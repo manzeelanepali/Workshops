@@ -14,16 +14,14 @@ Number((Math.random() * 1000000).toFixed(0))
     initialState:[],
     reducers: {
       createNote(state, action) {
-        const content = action.payload
-        state.push({
-          content,
-          important: false,
-          id: generateId(),
-        })
+        return[...state,action.payload]
+        // const content = action.payload
+        // state.push(content)
+         
       },
 
       appendNote(state, action) {
-        state.push(action.payload)
+        return [...state,action.payload]
       },  
       setNotes(state, action) {
         return action.payload
