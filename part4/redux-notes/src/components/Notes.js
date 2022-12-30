@@ -1,4 +1,4 @@
-
+import { connect } from 'react-redux'
 import { toggleImportanceOf } from "../reducers/noteReducer";
 import { useSelector,useDispatch } from "react-redux";
 
@@ -38,5 +38,5 @@ const toggleImportance = (id) => {
       </ul>
   )
 }
-    
-    export default Notes;
+const ConnectedNotes = connect()(Notes)
+    export default ConnectedNotes;
